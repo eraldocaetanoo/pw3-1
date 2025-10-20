@@ -6,6 +6,7 @@ const Produto = require('./models/Produto.js');
 const Venda = require("./models/Venda.js")
 const ItemVenda = require("./models/ItemVenda.js");
 const UserController = require('./controllers/UserController.js');
+const VendaController = require('./controllers/VendaController.js');
 
 
 Venda.belongsTo(User, { foreignKey: 'idUser' });
@@ -30,6 +31,7 @@ app.use(cors({
 }));
 
 app.use("/v1/", require("./routes/UserRoutes.js"))
+app.use("/v1/", require("./routes/VendaRoutes.js"))
 
 
 // Sample route
@@ -38,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/v1/vendas/:id',   async (req, res)  => {
+app.get('/v1/vendas_ant/:id',   async (req, res)  => {
   const allUser =  await Venda.findByPk(req.params.id, {
     include: [
       { model: User, attributes: ['id', 'name', 'email'] },
