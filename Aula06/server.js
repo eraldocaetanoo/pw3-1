@@ -7,6 +7,7 @@ const Venda = require("./models/Venda.js")
 const ItemVenda = require("./models/ItemVenda.js");
 const UserController = require('./controllers/UserController.js');
 const VendaController = require('./controllers/VendaController.js');
+const ClienteController = require('./controllers/ClienteController.js');
 
 
 Venda.belongsTo(User, { foreignKey: 'idUser' });
@@ -32,6 +33,7 @@ app.use(cors({
 
 app.use("/v1/", require("./routes/UserRoutes.js"))
 app.use("/v1/", require("./routes/VendaRoutes.js"))
+app.use("/v1/", require("./routes/ClienteRoutes.js"))
 
 
 // Sample route
