@@ -1,16 +1,35 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import viteLogo from '/vite.svg'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Menu } from '@mui/material'
 import axios from 'axios'
+import  './site.css'
+import MenuLateral from './MenuLateral'
+import Usuario from './Usuario'
+
 
 function Home() {
    
+    const [page,setPage]  = useState('home');
+
+    function renderContent() {
+        if (page === 'home') { 
+            return <h1>Bem-vindo à página Home!</h1>;
+        }
+        if (page === 'usuario') {
+            return <Usuario />;
+        } 
+        
+    }
+
     return (
         <>
-            <div style={{ display:'flex', alignContent:'center', alignItems:'center', borderStyle:'dotted', flexDirection:'column', width:'200px', padding:'10px', margin:'0 auto', marginTop:'100px' }}>
-              Ola mundo
-            </div>
+        <div style={{display:'flex', flexDirection:'row' }}>
+         <MenuLateral setCurrentPage={setPage} />
+         <div  className="conteudo">
+           {renderContent()}
+         </div>
+         </div>
         </>
     )
 }
