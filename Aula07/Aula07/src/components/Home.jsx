@@ -6,6 +6,7 @@ import axios from 'axios'
 import  './site.css'
 import MenuLateral from './MenuLateral'
 import Usuario from './Usuario'
+import UsuarioList from './UsuarioList'
 
 
 function Home() {
@@ -17,7 +18,10 @@ function Home() {
             return <h1>Bem-vindo à página Home!</h1>;
         }
         if (page === 'usuario') {
-            return <Usuario />;
+            return <UsuarioList setCurrentPage={setPage} />;
+        } 
+        if (page === 'newusuario') {
+            return <Usuario setCurrentPage={setPage}/>;
         } 
         
     }
