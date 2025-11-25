@@ -5,16 +5,20 @@ import { TextField, Button, Menu } from '@mui/material'
 import axios from 'axios'
 import  './site.css'
 import MenuLateral from './MenuLateral'
-function UsuarioList({ setCurrentPage }) {
-
-   
+function UsuarioList({ setCurrentPage, setIdUser }) {
 
     const [nome,setNome]  = useState('');
     const [email,setEmail]  = useState('');
     const [listaUsuarios, setListaUsuarios] = useState([]);
 
     function setUsersList(){
-         axios.get('http://localhost:3000/v1/users').then(response => {
+
+        const body={
+            name:  "%"+nome+"%",
+            email: "%"+email+"%"
+        }
+
+         axios.post('http://localhost:3000/v1/users/by', body).then(response => {
             console.log('User data:', response.data);
             setListaUsuarios(response.data);
        
@@ -23,16 +27,38 @@ function UsuarioList({ setCurrentPage }) {
         }   );   
 
     }
+
     function handleNew() {
         setCurrentPage('newusuario');
 
     }
+
     function handleSave() {
+       // alert('Pesquisar usuario: '+nome+' - '+email);
         const body = {
             name: nome,
             email: email
         };
         setUsersList();
+    }
+
+    function handleDelete(id) {
+        const resposta = confirm('Deseja excluir  o usuario '+id.name+" ?");
+        if (resposta){
+
+            axios.delete('http://localhost:3000/v1/users/'+id.id).then(response => {
+                console.log('User deleted:', response.data);
+                setUsersList();
+            }).catch(error => {
+                console.error('Houve um erro ao excluir!', error.message);
+            });
+        }
+    }
+
+    function handleUpdade(id){
+      //  alert('Editar usuario '+id.name);
+        setCurrentPage('updateusuario');
+        setIdUser(id.id);
     }
 
      useEffect(() => {
@@ -58,6 +84,8 @@ function UsuarioList({ setCurrentPage }) {
                     <tr>
                         <th>Nome</th>
                         <th>Email</th>
+                        <th>excluir</th>
+                        <th>Editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +93,8 @@ function UsuarioList({ setCurrentPage }) {
                     <tr key={usuario.id}>
                         <td>{usuario.name}</td>
                         <td>{usuario.email}</td>
+                        <td> <a  onClick={() => handleDelete(usuario)} href='#'>excluir</a>  </td>
+                        <td> <a  onClick={() => handleUpdade(usuario)} href='#'>editar</a>  </td>
                     </tr>))}
                 </tbody>
             </table>

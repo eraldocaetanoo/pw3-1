@@ -12,6 +12,21 @@ module.exports = class UserController {
         }
     }
 
+     static async listByParam(req, res) {
+        try {
+            const { name, email } = req.body;
+            const users = await User.findAll({
+                where: {
+                    name: { [Sequelize.Op.like]: `%${name}%` },
+                    email: { [Sequelize.Op.like]: `%${email}%` }
+                }
+            });
+            res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({ error: 'Erro ao listar usuários' });
+        }
+    }
+
     static async getById(req, res) {
         const { id } = req.params;
         try {

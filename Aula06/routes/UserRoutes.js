@@ -4,6 +4,7 @@ const UserController = require('../controllers/UserController');
 
 // Definir as rotas para usuários
 router.get('/users', UserController.listAll);
+router.post('/users/by', UserController.listByParam);
 router.get('/users/:id', UserController.getById);
 router.post('/users', UserController.create);
 router.put('/users/:id', UserController.update);
