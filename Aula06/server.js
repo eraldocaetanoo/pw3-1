@@ -33,13 +33,9 @@ app.use(cors({
 app.use("/v1/", require("./routes/UserRoutes.js"))
 app.use("/v1/", require("./routes/VendaRoutes.js"))
 app.use("/v1/", require("./routes/ClienteRoutes.js"))
+app.use("/v1/", require("./routes/ProdutoRoutes.js"))
 
-// ROTAS DO PRODUTOCONTROLLER
-app.get('/v1/produtos', ProdutoController.listAll);
-app.get('/v1/produtos/:id', ProdutoController.getById);
-app.post('/v1/produtos', ProdutoController.create);
-app.put('/v1/produtos/:id', ProdutoController.update);
-app.delete('/v1/produtos/:id', ProdutoController.delete);
+ 
 
 // Sample route
 app.get('/', (req, res) => {

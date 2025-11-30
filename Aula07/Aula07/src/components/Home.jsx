@@ -8,12 +8,16 @@ import MenuLateral from './MenuLateral'
 import Usuario from './Usuario'
 import UsuarioList from './UsuarioList'
 import UsuarioUpdate from './UsuarioUpdate'
+import Cliente from './Cliente'
+import ClienteList from './ClienteList'
+import ClienteUpdate from './ClienteUpdate'
 
 
 function Home() {
    
     const [page,setPage]  = useState('home');
     const [idUser,setIdUser]  = useState(1);
+    const [idCliente,setIdCliente]  = useState(1);
 
     function renderContent() {
         if (page === 'home') { 
@@ -29,6 +33,18 @@ function Home() {
         if (page === 'updateusuario') {
             console.log('ID do usuário para atualizar:', idUser);
             return <UsuarioUpdate setCurrentPage={setPage} idUser={idUser} />;
+        }
+
+        if (page === 'cliente') {
+            return <ClienteList setCurrentPage={setPage} setIdCliente={setIdCliente}  />;
+        } 
+        if (page === 'newcliente') {
+            return <Cliente setCurrentPage={setPage}/>;
+        }
+        
+        if (page === 'updatecliente') {
+            console.log('ID do cliente para atualizar:', idCliente);
+            return <ClienteUpdate setCurrentPage={setPage} idCliente={idCliente} />;
         }
         
     }
